@@ -1,0 +1,7 @@
+streamlit>=1.36.0
+pandas>=2.2.2
+numpy>=1.26.4
+sqlalchemy>=2.0.30
+pyodbc>=5.1.0
+python-dotenv>=1.0.1
+urllib3>=2.2.2
