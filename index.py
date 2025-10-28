@@ -21,7 +21,9 @@ DB_USER = os.getenv("DB_USER", "acessoext_mineirinho")
 DB_PASS = os.getenv("DB_PASS", "")  # deixe vazio no .env se quiser inserir depois
 
 PREFERRED_DRIVERS = [
-    "ODBC Driver 17 for SQL Server"
+    "ODBC Driver 18 for SQL Server",
+    "ODBC Driver 17 for SQL Server",
+    "SQL Server"
 ]
 
 def choose_driver():
@@ -39,14 +41,13 @@ def choose_driver():
 @st.cache_resource
 def get_sql_engine(host, port, database, user, password):
     driver = choose_driver()
-    extra = ""
-    if "ODBC Driver 18" in driver:
-        extra = "Encrypt=no;TrustServerCertificate=yes;"
-    odbc_str = f"DRIVER={{{driver}}};SERVER={host},{port};DATABASE={database};UID={user};PWD={password};{extra}"
+    encrypt_opts = "Encrypt=yes;TrustServerCertificate=yes;"
+    odbc_str = f"DRIVER={{{driver}}};SERVER={host},{port};DATABASE={database};UID={user};PWD={password};{encrypt_opts}"
     params = urllib.parse.quote_plus(odbc_str)
     url = f"mssql+pyodbc:///?odbc_connect={params}"
     engine = create_engine(url, fast_executemany=True)
     return engine, driver
+
 
 # use leading underscore so Streamlit doesn't try to hash the Engine object
 @st.cache_data(ttl=300)
