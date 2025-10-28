@@ -21,9 +21,7 @@ DB_USER = os.getenv("DB_USER", "acessoext_mineirinho")
 DB_PASS = os.getenv("DB_PASS", "")  # deixe vazio no .env se quiser inserir depois
 
 PREFERRED_DRIVERS = [
-    "ODBC Driver 18 for SQL Server",
-    "ODBC Driver 17 for SQL Server",
-    "SQL Server"
+    "ODBC Driver 17 for SQL Server"
 ]
 
 def choose_driver():
